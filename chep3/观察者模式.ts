@@ -63,24 +63,28 @@ class Intermediary implements Observer {
  * @implements {Observer}
  */
 class Customer implements Observer {
-  // 监听消息，房子是否开发完成
+  // 定义账户余额
   private cost: number = 0;
-
+  // 监听消息，房子是否开发完成
   listener(arg: boolean) {
     if (arg) {
-      this.draw();
+      this.buy();
     }
   }
 
+  // 取钱
   draw() {
-    this.cost = 10000000;
+    this.cost += 1000000;
   }
 
-  buy() {
-    if (this.cost >= 10000000) {
+  // 购买
+  async buy() {
+    await this.draw();
+    if (this.cost >= 3000000) {
       console.log(`购买了!`);
     } else {
       console.log('买不起！');
+      this.buy();
     }
   }
 }
